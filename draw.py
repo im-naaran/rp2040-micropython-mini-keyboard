@@ -1,7 +1,7 @@
 import framebuf
 from machine import Pin, I2C
 import ssd1306
-from fonts import matrix
+from fonts import matrix, matrix_SP
 from config import SSD_1306_I2C_ID, SSD_1306_SCL_PIN, SSD_1306_SDA_PIN, \
     SSD_1306_FREQ, SSD_OLED_WIDTH, SSD_OLED_HEIGHT, CHAR_WIDTH
 
@@ -26,25 +26,36 @@ def draw_oled(binary_matrix, pos_x, pos_y):
     oled.blit(fb, pos_x, pos_y)
 
 
+pos_x = 0
+pos_y = 0
 line = 0
-draw_pos_x = 0
 
 
 def draw(str):
-    global draw_pos_x
+    global pos_x
+    global pos_y
     global line
 
     oled.fill(0)
-    line = 0
-    draw_pos_x = 0
+
+    pos_x = 0
+    pos_y = 0
 
     for index, char in enumerate(str):
-        if draw_pos_x < (SSD_OLED_WIDTH - 16):
-            draw_pos_x = (index - 8 * line) * 16
-        else:
-            line = line + 1
-            draw_pos_x = 0
+        if char.isdigit():
+            c = matrix[int(char)]
+            draw_oled(c, pos_x, pos_y)
+            pos_x += 16
+        elif char == ' ':
+            c = matrix_SP
+            draw_oled(c, pos_x, pos_y)
+            pos_x += 16
+        elif char == '\n':
+            pos_x = 0
+            pos_y += 16
 
-        draw_pos_y = line * 16
-        draw_oled(matrix[int(char)], draw_pos_x, draw_pos_y)
+        if pos_x >= 128:
+            pos_y += 16
+            pos_x = 0
+
     oled.show()

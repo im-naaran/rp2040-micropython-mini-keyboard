@@ -13,7 +13,7 @@ for p in KEYBOARD_COL_PINS:
     col_pins.append(Pin(p, Pin.OUT))
 
 # 去抖延时（毫秒）
-DEBOUNCE_TIME = 50
+DEBOUNCE_TIME = 20
 
 # 上一次按键时间
 last_key_time = 0
