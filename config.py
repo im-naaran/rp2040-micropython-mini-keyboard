@@ -1,5 +1,5 @@
-# 运行间隔频率
-FREQ = 1 / 100
+# 主循环扫描间隔（秒）
+MAIN_LOOP_INTERVAL = 0.01
 
 # 指示灯
 INDICATOR_LED = 16
@@ -18,6 +18,9 @@ CHAR_WIDTH = 16
 # 键盘设置
 KEYBOARD_ROW_PINS = [5, 6, 7, 8]
 KEYBOARD_COL_PINS = [4, 3, 2, 1]
+
+# 键盘去抖时间（毫秒）
+KEYBOARD_DEBOUNCE_TIME = 50
 
 # 按键键位映射
 KEYCODE_MAP = [

@@ -3,7 +3,7 @@ from machine import Pin
 import neopixel
 from draw import draw
 from keyboard import scan_keyboard
-from config import KEYCODE_MAP, CHAR_MAP, INDICATOR_LED
+from config import KEYCODE_MAP, CHAR_MAP, INDICATOR_LED, MAIN_LOOP_INTERVAL
 
 # 初始化 WS2812 LED
 np = neopixel.NeoPixel(Pin(INDICATOR_LED), 1)
@@ -45,4 +45,6 @@ while True:
         elif char_name == 'CL':
             oled_char = ''
         draw(oled_char)
-    time.sleep(0.02)
+    
+    # 使用配置文件中的扫描间隔
+    time.sleep(MAIN_LOOP_INTERVAL)
